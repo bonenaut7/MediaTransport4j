@@ -1,1 +1,1 @@
-rootProject.name = rootProject.projectDir.getName()
+rootProject.name = "mediatransport4j" // rootProject.projectDir.getName() // don't wanna it to be called "library" in the IDE, heh
