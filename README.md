@@ -2,7 +2,10 @@
 Allows you to control OS media sessions
 
 # How to use
-Step 1. Initialize the library
+### Step 0. Make sure that you have dependencies of this library
+Since this library doesn't use any publishing services at the moment, you'll need to copy it's dependencies from the buildscript.
+
+### Step 1. Initialize the library
 ```java
 if (!MediaTransport.init()) {
     // Initialization may fail in some circumstances.
@@ -11,12 +14,12 @@ if (!MediaTransport.init()) {
 }
 ```
 
-Step 2. Query active media sessions
+### Step 2. Query active media sessions
 ```java
 List<MediaSession> sessions = MediaTransport.getMediaSessions(); // Returned list may be null!
 ```
 
-Step 3. Get the information you need, or control media sessions
+### Step 3. Get the information you need, or control media sessions
 ```java
 if (sessions != null) {
     System.out.println("Active sessions:");
@@ -25,8 +28,6 @@ if (sessions != null) {
     }
 }
 ```
-
-Well, that's all you need to know!
 
 # How to build
 ### Java library
