@@ -22,12 +22,9 @@ repositories {
     mavenCentral()
 }
 
-archivesBaseName = 'mediatransport4j-1.0.1'
+archivesBaseName = 'mediatransport4j-1.0.2'
 
 dependencies {
-	// Dynamic library loader
-	implementation 'com.badlogicgames.gdx:gdx-jnigen-loader:2.3.1'
-
     // D-Bus for tinkering with media player in Linux
     implementation 'com.github.hypfvieh:dbus-java:3.3.0'
 
