@@ -2,8 +2,7 @@ package by.bonenaut7.mediatransport4j.api;
 
 import java.util.List;
 
-import com.badlogic.gdx.utils.SharedLibraryLoader;
-
+import by.bonenaut7.mediatransport4j.SharedLibraryLoader;
 import by.bonenaut7.mediatransport4j.impl.windows.WindowsMediaTransport;
 
 public final class MediaTransport {
