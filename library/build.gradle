@@ -22,7 +22,7 @@ repositories {
     mavenCentral()
 }
 
-archivesBaseName = 'mediatransport4j-1.0.0'
+archivesBaseName = 'mediatransport4j-1.0.1'
 
 dependencies {
 	// Dynamic library loader

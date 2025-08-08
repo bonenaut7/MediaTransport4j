@@ -69,7 +69,6 @@ JNIEXPORT jobject JNICALL Java_by_bonenaut7_mediatransport4j_impl_windows_Window
     IRandomAccessStreamWithContentType asyncStream = nullptr;
     DataReader reader = nullptr;
     bool streamsClosed = false;
-    bool frameActive = false;
 
     try {
         MT_DEBUG("Acquire SMTC");
@@ -85,10 +84,6 @@ JNIEXPORT jobject JNICALL Java_by_bonenaut7_mediatransport4j_impl_windows_Window
             const auto sessionMediaProps = smtcSession.TryGetMediaPropertiesAsync().get();
             const auto sessionTimeline = smtcSession.GetTimelineProperties();
             const auto sessionThumbnail = sessionMediaProps.Thumbnail();
-
-            // Pushin' local frame
-            MT_DEBUG("[" << idx << "] Push session-cycle local frame");
-            frameActive = env->PushLocalFrame(10) != 0; // There's 9 of them, well, let me give it free 10!
 
             // Acquire titles, playback information
             MT_DEBUG("[" << idx << "] Acquire information");
@@ -139,6 +134,7 @@ JNIEXPORT jobject JNICALL Java_by_bonenaut7_mediatransport4j_impl_windows_Window
             // Create ByteBuffer for the thumbnail
             MT_DEBUG("[" << idx << "] Create thumbnail ByteBuffer");
             jobject thumbnailBuffer = env->CallStaticObjectMethod(g_jByteBufferClass, g_jByteBuffer_Wrap, thumbnailArray);
+            env->DeleteLocalRef(thumbnailArray);
 
             // Create WindowsMediaSession
             MT_DEBUG("[" << idx << "] Create WindowsMediaSession");
@@ -146,26 +142,22 @@ JNIEXPORT jobject JNICALL Java_by_bonenaut7_mediatransport4j_impl_windows_Window
                 idx, sourceApp, artist, title, thumbnailBuffer, duration, position, isPlaying
             );
 
+            // Clean references
+            env->DeleteLocalRef(sourceApp);
+            env->DeleteLocalRef(artist);
+            env->DeleteLocalRef(title);
+            env->DeleteLocalRef(thumbnailBuffer);
+
             // Put WindowsMediaSession to the array list
             MT_DEBUG("[" << idx << "] Put WindowsMediaSession into the ArrayList");
             env->CallBooleanMethod(arrayList, g_jArrayList_Add, sessionObject);
-
-            // Poppin' local frame
-            if (frameActive) {
-                env->PopLocalFrame(nullptr);
-                frameActive = false;
-            }
+            env->DeleteLocalRef(sessionObject);
         }
 
         MT_DEBUG("Return list");
         return arrayList;
     } catch (const hresult_error& err) {
         MT_DEBUG("Oh, no, an exception! Message: " << to_string(err.message()));
-        // Close active frame if there is one
-        if (frameActive) { // Oops...
-            env->PopLocalFrame(nullptr);
-            frameActive = false;
-        }
 
         // Destroy array list cause we will return NULL anyways
         if (arrayList != nullptr) {
