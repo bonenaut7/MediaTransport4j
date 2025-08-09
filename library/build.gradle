@@ -22,7 +22,7 @@ repositories {
     mavenCentral()
 }
 
-archivesBaseName = 'mediatransport4j-1.0.2'
+archivesBaseName = 'mediatransport4j-1.0.3'
 
 dependencies {
     // D-Bus for tinkering with media player in Linux
