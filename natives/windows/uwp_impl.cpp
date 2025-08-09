@@ -224,23 +224,5 @@ JNIEXPORT jboolean JNICALL Java_by_bonenaut7_mediatransport4j_impl_windows_Windo
 }
 
 JNIEXPORT jboolean JNICALL Java_by_bonenaut7_mediatransport4j_impl_windows_WindowsMediaSession_nStop(JNIEnv* env, jclass obj, jint jObjectIndex) {
-    try {
-        MT_DEBUG("SMTC Session action ->"); 
-        const auto smtc = GlobalSystemMediaTransportControlsSessionManager::RequestAsync().get(); 
-        const auto sessions = smtc.GetSessions(); 
-        const int32_t index = static_cast<int32_t>(jObjectIndex); 
-        const int32_t size = static_cast<int32_t>(sessions.Size()); 
-        if (size != 0 && index > -1 && index < sessions.Size()) {  
-            MT_DEBUG(" - [" << index << "] Session action passed."); 
-            const auto session = sessions.GetAt(static_cast<uint32_t>(index)); 
-            return session.TryStopAsync() ? JNI_TRUE : JNI_FALSE;
-        } 
-    } catch (const hresult_error& err) {
-        MT_DEBUG(" - Session action failed, exception: " << to_string(err.message())); 
-    } 
-    
-    MT_DEBUG(" - Session action failed."); 
-    return JNI_FALSE;
-
-    //SMTC_SESSION_INDEX_FUNCTION(session.TryStopAsync());
+    SMTC_SESSION_INDEX_FUNCTION(session.TryStopAsync());
 }
