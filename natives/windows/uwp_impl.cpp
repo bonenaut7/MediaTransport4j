@@ -34,7 +34,7 @@ using namespace Windows::Storage::Streams;
         const int32_t index = static_cast<int32_t>(jObjectIndex); \
         const int32_t size = static_cast<int32_t>(sessions.Size()); \
         if (size != 0 && index > -1 && index < sessions.Size()) { \
-            MT_DEBUG(" - Session " << idx); \
+            MT_DEBUG(" - Session " << index); \
             const auto session = sessions.GetAt(static_cast<uint32_t>(index)); \
             return sessionActionExpr ? JNI_TRUE : JNI_FALSE; \
         } \
