@@ -9,9 +9,9 @@ add_library(mediatransport4j-uwp SHARED
     uwp_impl.h
 )
 
-set_target_properties(mediatransport4j-uwp PROPERTIES
-    VS_WINRT_COMPONENT TRUE
-)
+#set_target_properties(mediatransport4j-uwp PROPERTIES
+#    VS_WINRT_COMPONENT TRUE
+#)
 
 target_include_directories(mediatransport4j-uwp PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}

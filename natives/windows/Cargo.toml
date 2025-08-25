@@ -1,0 +1,22 @@
+[package]
+name = "MediaTransport4j-WinRT"
+version = "0.1.0"
+authors = [ "bonenaut7" ]
+edition = "2024"
+license = "MIT"
+description = "MediaTransport4j interop library that uses WinRT."
+
+[dependencies]
+jni = "0.21.1"
+tokio = { version = "1.47.1", features = [ "rt", "time" ] }
+windows-future = "0.2.1"
+windows = { version = "0.61.3", features = [ "Media_Control", "Storage_Streams" ] }
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = false
+
+[lib]
+crate-type = [ "cdylib" ]
+name = "mediatransport4j"
